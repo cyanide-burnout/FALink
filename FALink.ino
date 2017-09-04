@@ -84,13 +84,11 @@ int ReadCommand()
         if ((position > (CIV_HEADER_SIZE + 1)) && (position < (CIV_HEADER_SIZE + CIV_FREQUENCY_SIZE + 1)))
         {
           // Frequency could be updated partialy
-          // so we are useing buffer to store frequency values
+          // We should use buffer to store frequency value
           int length = position - CIV_HEADER_SIZE;
           memcpy(store, &message[5], length);
           return COMMAND_FREQUENCY_UPDATED;
         }
-        break;
-      default:  
         break;
     }
   }
@@ -165,8 +163,8 @@ boolean InProgress()
 
 // Generic I/O
 
-// 0x27 is default address for the DFR0013 board with no jumpers.
-// 0x20 is address for the DFR0013 board with all jumpers.
+// 0x27 is default address for the DFR0013 board when it has no jumpers installed
+// 0x20 is address for the DFR0013 board when it has all jumpers installed
 #define GIO_ADDRESS       0x27           // B0100000
 #define GIO_DIRECTION_A   PCA_CONFIG_P0  // MCP_IODIRA
 #define GIO_DIRECTION_B   PCA_CONFIG_P1  // MCP_IODIRB
@@ -217,7 +215,7 @@ void InitializeFA()
 
 void TuneFA(int value)
 {
-  // Additional binary operations to enable the control of directly connected FAP.
+  // Additional binary operations to enable the control of directly connected FAP
   value |= (value & 0x200) >> 1;
   WriteGIO(FA_IIC_ADDRESS, GIO_OUTPUT_A, lowByte(value));
   WriteGIO(FA_IIC_ADDRESS, GIO_OUTPUT_B, highByte(value));
