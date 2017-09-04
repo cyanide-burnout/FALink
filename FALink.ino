@@ -215,7 +215,7 @@ void InitializeFA()
 
 void TuneFA(int value)
 {
-  // Additional binary operations to enable the control of directly connected FAP
+  // Addition to support directly connected FAP
   value |= (value & 0x200) >> 1;
   WriteGIO(FA_IIC_ADDRESS, GIO_OUTPUT_A, lowByte(value));
   WriteGIO(FA_IIC_ADDRESS, GIO_OUTPUT_B, highByte(value));
