@@ -68,7 +68,7 @@ boolean ReadCIV()
 #define CIV_COMMAND_READ_FREQUENCY    0x03
 
 #define COMMAND_NONE                  0
-#define COMMAND_FREQUENCY_UPDATED     1
+#define COMMAND_FREQUENCY_UPDATE      1
 
 unsigned char store[CIV_FREQUENCY_SIZE] = { 0, 0, 0, 0, 0 };
 
@@ -87,7 +87,7 @@ int ReadCommand()
           // We should use buffer to store frequency value
           int length = position - CIV_HEADER_SIZE;
           memcpy(store, &message[5], length);
-          return COMMAND_FREQUENCY_UPDATED;
+          return COMMAND_FREQUENCY_UPDATE;
         }
         break;
     }
@@ -695,7 +695,7 @@ void setup()
 
 void loop()
 {
-  if ((ReadCIV()) && (ReadCommand() == COMMAND_FREQUENCY_UPDATED) && (mode == MODE_AUTOMATIC))
+  if ((ReadCIV()) && (ReadCommand() == COMMAND_FREQUENCY_UPDATE) && (mode == MODE_AUTOMATIC))
     UpdateDisplay(Synchronize());
   
   switch (ReadKeys())
